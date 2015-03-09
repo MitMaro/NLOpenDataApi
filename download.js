@@ -2,6 +2,7 @@ var http = require('http');
 var fs = require('fs');
 var contentDisposition = require('content-disposition');
 var winston = require('winston');
+var sleep = require('sleep');
 
 var OUTPUT_DIR = './data/';
 
@@ -38,10 +39,9 @@ var downloadFile = function(id) {
 			winston.info('File written to: %s', outputFilename);
 			response.pipe(fs.createWriteStream(outputFilename));
 		}
-		
-		  downloadFile(id + 1);
-	  }
-	);
+		sleep.usleep(300);
+		downloadFile(id + 1);
+	});
 	req.end();
 };
 
